@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maria Rita Borel Queiroz — Cineasta</title>
+
+  <!-- Bootstrap 5 CDN -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+
+  <!-- Google Fonts: Cormorant Garamond (serifada) + DM Sans (sans-serif) -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;1,9..40,300&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    /* =============================================
+       VARIÁVEIS E BASE
+    ============================================= */
+    :root {
+      --azul-vivo:    #2a5f8f;
+      --azul-medio:   #4a7fa8;
+      --azul-claro:   #8db8d0;
+      --azul-palido:  #c8dde8;
+      --azul-gelo:    #eaf2f7;
+      --cinza-ardosia:#5e6e78;
+      --cinza-escuro: #2c3740;
+      --off-white:    #f5f1ec;
+      --creme:        #ede8e0;
+
+      --fonte-titulo: 'Cormorant Garamond', Georgia, serif;
+      --fonte-corpo:  'DM Sans', Helvetica, sans-serif;
+    }
+
+    /* Reset e base */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--fonte-corpo);
+      background-color: var(--off-white);
+      color: var(--cinza-escuro);
+      overflow-x: hidden;
+      /* Textura de grão analógico via SVG inline */
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    }
+
+    /* =============================================
+       TIPOGRAFIA
+    ============================================= */
+    h1, h2, h3, h4, .display-font {
+      font-family: var(--fonte-titulo);
+      font-weight: 400;
+      letter-spacing: -0.01em;
+    }
+
+    p, li, small, .corpo {
+      font-family: var(--fonte-corpo);
+      font-weight: 300;
+      line-height: 1.75;
+    }
+
+    /* =============================================
+       NAVBAR
+    ============================================= */
+    .navbar-custom {
+      background-color: rgba(245, 241, 236, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--azul-palido);
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar-brand-custom {
+      font-family: var(--fonte-titulo);
+      font-size: 1.25rem;
+      font-style: italic;
+      color: var(--azul-vivo) !important;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+    }
+
+    .nav-link-custom {
+      font-family: var(--fonte-corpo);
+      font-size: 0.8rem;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--cinza-ardosia) !important;
+      text-decoration: none;
+      transition: color 0.3s ease;
+      padding: 0.25rem 0.75rem;
+    }
+
+    .nav-link-custom:hover {
+      color: var(--azul-vivo) !important;
+    }
+
+    /* =============================================
+       HERO
+    ============================================= */
+    .hero {
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 6rem 0 4rem;
+    }
+
+    /* Fundo azul texturizado no hero */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg,
+        var(--azul-gelo) 0%,
+        var(--azul-palido) 40%,
+        var(--creme) 100%);
+      z-index: 0;
+    }
+
+    /* Moldura decorativa analógica */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 2.5rem;
+      left: 2.5rem;
+      right: 2.5rem;
+      bottom: 2.5rem;
+      border: 1px solid rgba(42, 95, 143, 0.18);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--fonte-corpo);
+      font-size: 0.72rem;
+      font-weight: 300;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--azul-medio);
+      margin-bottom: 1.5rem;
+      /* Animação de entrada */
+      animation: fadeUp 0.9s ease both;
+      animation-delay: 0.1s;
+    }
+
+    .hero-title {
+      font-family: var(--fonte-titulo);
+      font-size: clamp(3.2rem, 8vw, 7rem);
+      font-weight: 300;
+      line-height: 1.02;
+      color: var(--cinza-escuro);
+      margin-bottom: 2rem;
+      animation: fadeUp 0.9s ease both;
+      animation-delay: 0.25s;
+    }
+
+    .hero-title em {
+      color: var(--azul-vivo);
+      font-style: italic;
+    }
+
+    .hero-desc {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--cinza-ardosia);
+      max-width: 42ch;
+      margin-bottom: 2.5rem;
+      animation: fadeUp 0.9s ease both;
+      animation-delay: 0.4s;
+    }
+
+    .hero-cta {
+      animation: fadeUp 0.9s ease both;
+      animation-delay: 0.55s;
+    }
+
+    /* Placa de imagem no hero */
+    .hero-frame {
+      position: relative;
+      animation: fadeUp 0.9s ease both;
+      animation-delay: 0.35s;
+    }
+
+    .hero-img-placeholder {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: linear-gradient(160deg, var(--azul-medio) 0%, var(--azul-vivo) 60%, var(--cinza-escuro) 100%);
+      border-radius: 2px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Efeito de película analógica */
+    .hero-img-placeholder::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.03) 2px,
+        rgba(0,0,0,0.03) 4px
+      );
+    }
+
+    .hero-caption {
+      font-family: var(--fonte-corpo);
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--cinza-ardosia);
+      margin-top: 0.75rem;
+      padding-left: 0.25rem;
+    }
+
+    /* Número decorativo */
+    .hero-number {
+      font-family: var(--fonte-titulo);
+      font-size: 0.8rem;
+      color: var(--azul-claro);
+      letter-spacing: 0.1em;
+      margin-top: 4rem;
+      animation: fadeUp 0.9s ease both;
+      animation-delay: 0.7s;
+    }
+
+    /* =============================================
+       BOTÕES
+    ============================================= */
+    .btn-custom-primary {
+      background-color: var(--azul-vivo);
+      color: var(--off-white);
+      border: none;
+      font-family: var(--fonte-corpo);
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.85rem 2rem;
+      border-radius: 0;
+      text-decoration: none;
+      display: inline-block;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn-custom-primary:hover {
+      background-color: var(--cinza-escuro);
+      color: var(--off-white);
+      transform: translateY(-2px);
+    }
+
+    .btn-custom-outline {
+      background-color: transparent;
+      color: var(--azul-vivo);
+      border: 1px solid var(--azul-vivo);
+      font-family: var(--fonte-corpo);
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.85rem 2rem;
+      border-radius: 0;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+
+    .btn-custom-outline:hover {
+      background-color: var(--azul-vivo);
+      color: var(--off-white);
+    }
+
+    /* =============================================
+       SEÇÃO GENÉRICA
+    ============================================= */
+    .section-label {
+      font-family: var(--fonte-corpo);
+      font-size: 0.68rem;
+      font-weight: 300;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--azul-medio);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .section-title {
+      font-family: var(--fonte-titulo);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 300;
+      color: var(--cinza-escuro);
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-divider {
+      width: 3rem;
+      height: 1px;
+      background-color: var(--azul-medio);
+      margin: 1.5rem 0 2rem;
+    }
+
+    /* =============================================
+       SEÇÃO PROJETOS
+    ============================================= */
+    #projetos {
+      background-color: var(--off-white);
+      padding: 7rem 0;
+    }
+
+    /* Badges Bootstrap customizados */
+    .badge-custom {
+      font-family: var(--fonte-corpo);
+      font-size: 0.62rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background-color: var(--azul-palido) !important;
+      color: var(--azul-vivo) !important;
+      border-radius: 0;
+      padding: 0.35em 0.7em;
+    }
+
+    /* Card de projeto Bootstrap customizado */
+    .card-projeto {
+      border: 1px solid var(--azul-palido);
+      border-radius: 0;
+      background-color: var(--creme);
+      overflow: hidden;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      position: relative;
+    }
+
+    .card-projeto:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(42, 95, 143, 0.12);
+    }
+
+    /* Placeholder de imagem do card com cores distintas */
+    .card-img-placeholder {
+      width: 100%;
+      height: 240px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-img-placeholder::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 3px,
+        rgba(255,255,255,0.04) 3px,
+        rgba(255,255,255,0.04) 6px
+      );
+    }
+
+    .img-agua {
+      background: linear-gradient(170deg,
+        #c8dde8 0%,
+        #4a7fa8 45%,
+        #2a5f8f 100%);
+    }
+
+    .img-set {
+      background: linear-gradient(135deg,
+        #2c3740 0%,
+        #4a7fa8 50%,
+        #8db8d0 100%);
+    }
+
+    .img-alicerces {
+      background: linear-gradient(160deg,
+        #5e6e78 0%,
+        #2a5f8f 60%,
+        #eaf2f7 100%);
+    }
+
+    /* Número do projeto sobreposto */
+    .card-num {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      font-family: var(--fonte-titulo);
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.1em;
+      z-index: 2;
+    }
+
+    .card-body-custom {
+      padding: 1.5rem;
+    }
+
+    .card-ano {
+      font-family: var(--fonte-corpo);
+      font-size: 0.68rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      color: var(--cinza-ardosia);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .card-titulo {
+      font-family: var(--fonte-titulo);
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: var(--cinza-escuro);
+      line-height: 1.15;
+      margin-bottom: 0.75rem;
+    }
+
+    .card-desc {
+      font-size: 0.88rem;
+      font-weight: 300;
+      color: var(--cinza-ardosia);
+      line-height: 1.7;
+      margin-bottom: 1.2rem;
+    }
+
+    /* Animações de entrada dos cards */
+    .card-animate {
+      opacity: 0;
+      transform: translateY(28px);
+      animation: fadeUp 0.8s ease forwards;
+    }
+
+    .card-animate:nth-child(1) { animation-delay: 0.1s; }
+    .card-animate:nth-child(2) { animation-delay: 0.25s; }
+    .card-animate:nth-child(3) { animation-delay: 0.4s; }
+
+    /* =============================================
+       SEÇÃO SOBRE MIM
+    ============================================= */
+    #sobre {
+      background-color: var(--cinza-escuro);
+      color: var(--off-white);
+      padding: 7rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #sobre::before {
+      content: '';
+      position: absolute;
+      top: -6rem;
+      right: -6rem;
+      width: 28rem;
+      height: 28rem;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(74,127,168,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .sobre-label {
+      color: var(--azul-claro);
+    }
+
+    .sobre-title {
+      color: var(--off-white);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+    }
+
+    .sobre-divider {
+      background-color: var(--azul-medio);
+    }
+
+    .sobre-body {
+      font-size: 1rem;
+      font-weight: 300;
+      color: rgba(245, 241, 236, 0.75);
+      line-height: 1.85;
+    }
+
+    .sobre-body strong {
+      color: var(--azul-claro);
+      font-weight: 400;
+    }
+
+    /* Foto / placeholder da foto */
+    .sobre-foto {
+      width: 100%;
+      aspect-ratio: 4/5;
+      background: linear-gradient(145deg,
+        var(--azul-vivo) 0%,
+        var(--azul-medio) 50%,
+        var(--cinza-ardosia) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sobre-foto::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 4px,
+        rgba(0,0,0,0.04) 4px,
+        rgba(0,0,0,0.04) 8px
+      );
+    }
+
+    /* Tags de habilidades */
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .skill-tag {
+      font-family: var(--fonte-corpo);
+      font-size: 0.68rem;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--azul-claro);
+      border: 1px solid rgba(141, 184, 208, 0.35);
+      padding: 0.35rem 0.85rem;
+    }
+
+    /* =============================================
+       SEÇÃO CONTATO
+    ============================================= */
+    #contato {
+      background-color: var(--azul-gelo);
+      padding: 7rem 0;
+      position: relative;
+    }
+
+    /* Faixa decorativa superior */
+    #contato::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--azul-vivo), var(--azul-claro), transparent);
+    }
+
+    .contato-link {
+      font-family: var(--fonte-titulo);
+      font-size: clamp(1.6rem, 4vw, 2.8rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--azul-vivo);
+      text-decoration: none;
+      display: block;
+      line-height: 1.4;
+      transition: color 0.3s ease, letter-spacing 0.3s ease;
+    }
+
+    .contato-link:hover {
+      color: var(--cinza-escuro);
+      letter-spacing: 0.03em;
+    }
+
+    .contato-separador {
+      width: 1px;
+      height: 2rem;
+      background-color: var(--azul-claro);
+      margin: 0.5rem 0;
+    }
+
+    /* =============================================
+       FOOTER
+    ============================================= */
+    footer {
+      background-color: var(--cinza-escuro);
+      color: rgba(245, 241, 236, 0.4);
+      padding: 2rem 0;
+      font-size: 0.72rem;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+    }
+
+    footer a {
+      color: rgba(245, 241, 236, 0.4);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    footer a:hover { color: var(--azul-claro); }
+
+    /* =============================================
+       ANIMAÇÕES (CSS only, sem JS extra)
+    ============================================= */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(28px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* Animate on scroll simulado via animation-delay para seções visíveis */
+    .animate-section {
+      animation: fadeUp 0.9s ease both;
+    }
+
+    /* =============================================
+       UTILITÁRIOS E AJUSTES RESPONSIVOS
+    ============================================= */
+
+    /* Linha horizontal decorativa analógica */
+    .linha-decorativa {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .linha-decorativa::before {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background-color: var(--azul-palido);
+    }
+
+    .linha-decorativa span {
+      font-family: var(--fonte-corpo);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cinza-ardosia);
+      white-space: nowrap;
+    }
+
+    /* Ajuste do toggler da navbar */
+    .navbar-toggler {
+      border: 1px solid var(--azul-palido);
+      border-radius: 0;
+      padding: 0.4rem 0.65rem;
+    }
+
+    .navbar-toggler:focus { box-shadow: none; }
+
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2842, 95, 143, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+
+    @media (max-width: 768px) {
+      .hero { padding: 5rem 0 3rem; }
+      .hero::after { display: none; }
+      .hero-title { font-size: 3rem; }
+      .hero-frame { margin-top: 3rem; }
+    }
+
+    @media (max-width: 576px) {
+      .card-img-placeholder { height: 200px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =============================================
+       NAVBAR (Bootstrap)
+  ============================================= -->
+  <nav class="navbar navbar-expand-md navbar-custom">
+    <div class="container">
+      <a class="navbar-brand-custom" href="#topo">Maria Rita Borel</a>
+
+      <button class="navbar-toggler" type="button"
+        data-bs-toggle="collapse" data-bs-target="#navMenu"
+        aria-controls="navMenu" aria-expanded="false" aria-label="Menu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto gap-1">
+          <li class="nav-item">
+            <a class="nav-link-custom" href="#projetos">Projetos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link-custom" href="#sobre">Sobre</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link-custom" href="#contato">Contato</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- =============================================
+       HERO
+  ============================================= -->
+  <section class="hero" id="topo">
+    <div class="container">
+      <div class="row align-items-center">
+
+        <!-- Texto -->
+        <div class="col-md-7 col-lg-6 hero-content">
+          <p class="hero-eyebrow">Cineasta em formação · ESPM-SP</p>
+
+          <h1 class="hero-title">
+            Maria<br />
+            <em>Rita</em><br />
+            Borel
+          </h1>
+
+          <p class="hero-desc">
+            Cinema e audiovisual, entre a câmera e o set —
+            direção, produção, som e o olhar que captura
+            o que o frame não mostra.
+          </p>
+
+          <div class="hero-cta d-flex flex-wrap gap-3">
+            <a href="#projetos" class="btn-custom-primary">Ver projetos</a>
+            <a href="#contato" class="btn-custom-outline">Entrar em contato</a>
+          </div>
+
+          <p class="hero-number">— 2026</p>
+        </div>
+
+        <!-- Imagem placeholder -->
+        <div class="col-md-5 col-lg-4 offset-lg-2 hero-frame">
+          <div class="hero-img-placeholder"></div>
+          <p class="hero-caption">Still · "Atrás de você", 2026</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       PROJETOS (Bootstrap grid + cards)
+  ============================================= -->
+  <section id="projetos">
+    <div class="container">
+
+      <div class="row mb-5 animate-section">
+        <div class="col-12">
+          <span class="section-label">Trabalhos recentes</span>
+          <h2 class="section-title">Projetos</h2>
+          <div class="section-divider"></div>
+        </div>
+      </div>
+
+      <div class="row g-4">
+
+        <!-- Card 1 — Água -->
+        <div class="col-sm-6 col-lg-4 card-animate">
+          <div class="card card-projeto h-100 border-0">
+
+            <div class="card-img-placeholder img-agua">
+              <span class="card-num">01</span>
+            </div>
+
+            <div class="card-body-custom">
+              <span class="card-ano">2026</span>
+              <h3 class="card-titulo">Água</h3>
+
+              <span class="badge badge-custom mb-3">Videoarte</span>
+
+              <p class="card-desc">
+                Uma exploração audiovisual da fluidez e
+                do tempo, em que a água se torna metáfora
+                para memória e esquecimento. Imagens
+                registradas em locações abertas, trabalhando
+                com luz natural e textura.
+              </p>
+
+              <a href="#" class="btn-custom-outline" style="font-size:0.65rem; padding:0.6rem 1.2rem;">
+                Ver mais
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 — Set -->
+        <div class="col-sm-6 col-lg-4 card-animate">
+          <div class="card card-projeto h-100 border-0">
+
+            <div class="card-img-placeholder img-set">
+              <span class="card-num">02</span>
+            </div>
+
+            <div class="card-body-custom">
+              <span class="card-ano">2026</span>
+              <h3 class="card-titulo">"Set"</h3>
+
+              <span class="badge badge-custom mb-3">Fotografia · Still</span>
+
+              <p class="card-desc">
+                Ensaio fotográfico realizado nos bastidores
+                do curta <em>Atrás de você</em>. O set como
+                personagem: rostos, cabos e sombras que
+                compõem a gramática invisível de um filme
+                em construção.
+              </p>
+
+              <a href="#" class="btn-custom-outline" style="font-size:0.65rem; padding:0.6rem 1.2rem;">
+                Ver galeria
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 — Alicerces do Brasil -->
+        <div class="col-sm-6 col-lg-4 card-animate">
+          <div class="card card-projeto h-100 border-0">
+
+            <div class="card-img-placeholder img-alicerces">
+              <span class="card-num">03</span>
+            </div>
+
+            <div class="card-body-custom">
+              <span class="card-ano">2026</span>
+              <h3 class="card-titulo">Alicerces do Brasil</h3>
+
+              <span class="badge badge-custom mb-3">Curta-metragem</span>
+
+              <p class="card-desc">
+                Documentário de curta-metragem que investiga
+                as fundações históricas e culturais do país
+                através de vozes e territórios esquecidos.
+                Direção coletiva, câmera na mão, som direto.
+              </p>
+
+              <a href="#" class="btn-custom-outline" style="font-size:0.65rem; padding:0.6rem 1.2rem;">
+                Ver projeto
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /row projetos -->
+    </div>
+  </section>
+
+  <!-- =============================================
+       SOBRE MIM
+  ============================================= -->
+  <section id="sobre">
+    <div class="container">
+      <div class="row align-items-center g-5">
+
+        <!-- Foto placeholder -->
+        <div class="col-md-4 col-lg-3 animate-section">
+          <div class="sobre-foto"></div>
+        </div>
+
+        <!-- Texto -->
+        <div class="col-md-8 col-lg-8 offset-lg-1 animate-section">
+          <span class="section-label sobre-label">Quem sou</span>
+          <h2 class="section-title sobre-title">Sobre mim</h2>
+          <div class="section-divider sobre-divider"></div>
+
+          <p class="sobre-body">
+            Sou estudante de <strong>Cinema e Audiovisual na ESPM-SP</strong>,
+            apaixonada por tudo que acontece antes e depois do clap.
+            Nos projetos que desenvolvi, transito entre diferentes funções:
+            <strong>produção</strong>, <strong>direção</strong>,
+            <strong>assistência de som</strong> e <strong>fotografia de still</strong>
+            — mais recentemente no projeto <em>"Atrás de você"</em>.
+          </p>
+
+          <p class="sobre-body mt-3">
+            Acredito que o cinema é também o que escapa da tela —
+            a tensão do set, a luz que muda antes de você apertar
+            o botão, o som que uma sala silenciosa guarda.
+            Estou sempre aprendendo, experimentando e tentando
+            colocar em imagem aquilo que as palavras não alcançam.
+          </p>
+
+          <!-- Tags de habilidades (Bootstrap badges customizados) -->
+          <div class="skill-tags mt-4">
+            <span class="skill-tag">Direção</span>
+            <span class="skill-tag">Produção</span>
+            <span class="skill-tag">Assistência de Som</span>
+            <span class="skill-tag">Fotografia</span>
+            <span class="skill-tag">Still</span>
+            <span class="skill-tag">Roteiro</span>
+            <span class="skill-tag">ESPM-SP</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       CONTATO
+  ============================================= -->
+  <section id="contato">
+    <div class="container">
+
+      <div class="row mb-5 animate-section">
+        <div class="col-12">
+          <span class="section-label">Vamos conversar</span>
+          <h2 class="section-title">Contato</h2>
+          <div class="section-divider"></div>
+        </div>
+      </div>
+
+      <div class="row align-items-center g-5 animate-section">
+
+        <div class="col-md-6">
+          <p class="corpo mb-4" style="color: var(--cinza-ardosia); font-size: 1rem;">
+            Aberta a colaborações, projetos, trocas e
+            conversas sobre cinema. Me encontre por aqui:
+          </p>
+
+          <div class="d-flex flex-column">
+            <a href="mailto:email@exemplo.com" class="contato-link">
+              email@exemplo.com
+            </a>
+            <div class="contato-separador ms-1"></div>
+            <a href="https://instagram.com/instafake" class="contato-link" target="_blank">
+              @instafake
+            </a>
+          </div>
+        </div>
+
+        <div class="col-md-5 offset-md-1">
+          <!-- Decoração analógica -->
+          <div style="border: 1px solid var(--azul-palido); padding: 2.5rem; position: relative;">
+            <span style="
+              position: absolute; top: -0.7rem; left: 1.5rem;
+              background: var(--azul-gelo); padding: 0 0.5rem;
+              font-family: var(--fonte-titulo); font-style: italic;
+              font-size: 0.9rem; color: var(--azul-medio);
+            ">nota</span>
+            <p class="corpo mb-0" style="font-size: 0.9rem; color: var(--cinza-ardosia); font-style: italic;">
+              "Cinema é uma questão de o que está no quadro
+              e o que está fora dele."
+            </p>
+            <p class="mt-2 mb-0" style="
+              font-family: var(--fonte-corpo);
+              font-size: 0.68rem;
+              letter-spacing: 0.1em;
+              color: var(--azul-claro);
+            ">— Martin Scorsese</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       FOOTER
+  ============================================= -->
+  <footer>
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <span>© 2026 Maria Rita Borel Queiroz</span>
+        </div>
+        <div class="col-md-6 text-md-end mt-2 mt-md-0">
+          <a href="mailto:email@exemplo.com">email@exemplo.com</a>
+          <span class="mx-2">·</span>
+          <a href="https://instagram.com/instafake" target="_blank">@instafake</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5 JS (para navbar collapse) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
